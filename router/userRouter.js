@@ -16,7 +16,6 @@ router.post(
         check('name').not().isEmpty().withMessage('Name must have more than 5 characters'),
         check('email', 'Your email is not valid').not().isEmpty().isEmail(),
         check('phone', 'Phone field can not be empty').not().isEmpty(),
-        //check('image', 'please choose image').not().isEmpty(),
     ],
     
     addUser,
@@ -29,7 +28,6 @@ router.put(
         check('name').not().isEmpty().withMessage('Name must have more than 5 characters'),
         check('email', 'Your email is not valid').not().isEmpty().isEmail(),
         check('phone', 'Choose a weekday').not().isEmpty(),
-        // check('image', 'please choose image').not().isEmpty(),
     ],
     updateUser,
 );

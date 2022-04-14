@@ -20,9 +20,6 @@ const getAllUser = async(req, res) => {
 const addUser = async (req, res) => {
     const { email, name, phone } = req.body
     const image = req.file.filename
-    // console.log(image);
-    // console.log(req.body);
-
     const errors = validationResult(req);
      
     if (!errors.isEmpty()) {
@@ -87,80 +84,6 @@ const updateUser = async (req, res) => {
     }
 
 
-    // const { name, phone, email } = req.body;
-    // const image = req.file.filename;
-/*
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).json(errors.array());
-    } 
-    if (!req.file) {
-        return res.status(422).json({ msg: 'please choose the image' });
-    }
-
-    User.findOne({ _id: req.params.id }).then(user => {
-        const pathFile = path.join('uploads', user.image);
-        console.log('path', pathFile);
-        fs.unlink(pathFile, function (err) {
-            if (err) {
-                throw err;
-            } else {
-                console.log('Successfully deleted the file.');
-            }
-        });
-
-        const { name, phone, email } = req.body;
-        const image = req.file.filename;
-
-        User.findByIdAndUpdate(
-            req.params.id, { name, image, phone, email }
-        ).then(result => {
-            res.status(200).json({
-                msg: 'user updated successfully',
-                user: result,
-            }); 
-        }) 
-    }).catch(err => {
-        res.status(400).json({
-            msg: err.message,
-        });
-    })
-*/
-    
-    
-    
-    
-    
-/*
-    try {
-
-
-        const user = await User.findOne({ _id: req.params.id });
-        const pathFile = path.join('uploads', user.image);
-        console.log('path', pathFile);
-        fs.unlink(pathFile, function (err) {
-            if (err) {
-                throw err;
-            } else {
-                console.log('Successfully deleted the file.');
-            }
-        });
-        
-        const updateUser = await User.findByIdAndUpdate(
-            req.params.id, { name, image, phone, email }
-        );
-        res.status(200).json({
-            msg: "user updated successfully",
-            user: updateUser
-        })    
-  
-    } catch (error) {
-        res.status(400).json({
-            msg: error.message
-        })
-    }
-
-    */
 }
 
 const editUser = async (req, res) => {
