@@ -1,10 +1,12 @@
 require("dotenv").config()
 const express = require("express")
+const cors = require("cors")
 const app = express()
 
 const dbConnect = require("./db")
 dbConnect()
 
+app.use(cors())
 app.use(express.json())
 //static Images Folder
 app.use('/uploads', express.static('./uploads'))

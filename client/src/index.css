@@ -1,0 +1,36 @@
+.image__preview-wrap {
+  width: 130px;
+  height: 140px;
+  overflow: hidden;
+  position: relative;
+}
+.image__preview-img {
+  display: none;
+  width: 100%;
+  border-radius: 0.25rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 140px;
+  object-fit: cover;
+}
+
+.image__preview-text {
+  color: rgb(210, 200, 200);
+  font-weight: bold;
+}
+
+td .badge {
+  cursor: pointer;
+}
+
+table.dataTable tbody tr {
+    background-color: #ffffff;
+    border-bottom-color: #ddd;
+}
+
+.dataTables_filter {
+  margin-bottom: 21px;
+}
