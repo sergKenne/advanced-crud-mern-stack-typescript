@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //static Images Folder
-//app.use('/uploads', express.static('./uploads'));
+app.use('/uploads', express.static('./client/public/uploads'));
 
 //routers
 app.use('/api/user', require('./router/userRouter'));
