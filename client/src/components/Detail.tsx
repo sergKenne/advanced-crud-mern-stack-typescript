@@ -26,7 +26,7 @@ const Detail: FC = () => {
                     <div className="row g-0">
                         <div className="col-md-6">
                             <img
-                                src={`http://localhost:5000/uploads/${detail.image}`}
+                                src={`/${detail.image}`}
                                 className="img-fluid rounded-start"
                                 alt="..."
                             />

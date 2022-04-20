@@ -19,7 +19,7 @@ const TableItem: FC<IProps> = ({ user }) => {
             <td>
                 <Link to={`/detail/${user._id}`}>
                     <img
-                        src={`http://localhost:5000/uploads/${user.image}`}
+                        src={`/${user.image}`}
                         alt={user.name}
                         width="25"
                     />
