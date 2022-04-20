@@ -80,7 +80,10 @@ const FormEditInputs: FC = () => {
     useEffect(() => {
         const { name, phone, email, image } = user;
         setUserInput({name, phone, email, image});
-        imgRef.current.setAttribute('src', "http://localhost:5000/uploads/" + user.image);
+        imgRef.current.setAttribute(
+            'src',
+            'https://advanced-crud-mern-typescript.herokuapp.com/uploads/' + user.image,
+        );
         imgRef.current.style.display = 'block';
         textRef.current.style.display = 'none';
     }, [])
