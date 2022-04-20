@@ -1,19 +1,20 @@
-require("dotenv").config()
-const express = require("express")
-const cors = require("cors")
-const app = express()
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const app = express();
 
-const dbConnect = require("./db")
-dbConnect()
+const dbConnect = require('./db');
+dbConnect();
 
-app.use(cors())
-app.use(express.json())
+//middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 //static Images Folder
-app.use('/uploads', express.static('./uploads'))
+app.use('/uploads', express.static('./uploads'));
 
 //routers
 app.use('/api/user', require('./router/userRouter'));
-
 
 if (process.env.NODE_ENV == 'production') {
     app.use(express.static('client/build'));
@@ -26,5 +27,5 @@ if (process.env.NODE_ENV == 'production') {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log("app is running on port 5000");
-})
+    console.log(`app is running on port ${PORT}`);
+});
