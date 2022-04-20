@@ -26,7 +26,7 @@ const Detail: FC = () => {
                     <div className="row g-0">
                         <div className="col-md-6">
                             <img
-                                src={`/${detail.image}`}
+                                src={`https://advanced-crud-mern-typescript.herokuapp.com/uploads/${detail.image}`}
                                 className="img-fluid rounded-start"
                                 alt="...git status"
                             />
