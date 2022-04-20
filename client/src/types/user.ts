@@ -1,10 +1,11 @@
 
 export interface IUser {
-    _id: string;
+    _id?: string;
     name: string;
     email: string;
     phone: string;
     image: string;
+    imageFile?: any;
     ind?: number;
 }
 
@@ -22,9 +23,19 @@ export enum UserActionType {
     DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS',
     DELETE_USER_FAIL = 'DELETE_USER_FAIL',
 
+    EDIT_USER = 'EDIT_USER',
+
     EDIT_USER_REQUEST = 'EDIT_USER_REQUEST',
     EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS',
     EDIT_USER_FAIL = 'EDIT_USER_FAIL',
+
+    UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST',
+    UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS',
+    UPDATE_USER_FAIL = 'UPDATE_USER_FAIL',
+    
+    USER_DETAIL_REQUEST = 'USER_DETAIL_REQUEST',
+    USER_DETAIL_SUCCESS = 'USER_DETAIL_SUCCESS',
+    USER_DETAIL_FAIL = 'USER_DETAIL_FAIL',
 }
 
 //FETCH USERS
@@ -59,7 +70,7 @@ interface CreateUserFail {
 }
 
 
-//DELET USER
+//DELETE USER
 interface DeleteUserRequest {
     type: UserActionType.DELETE_USER_REQUEST
 }
@@ -74,19 +85,41 @@ interface DeleteUserFail {
     payload: any
 }
 
-//DELET USER
-interface EditUserRequest {
-    type: UserActionType.EDIT_USER_REQUEST
-}
-
-interface EditUserSuccess {
-    type: UserActionType.EDIT_USER_SUCCESS,
+//EDIT USER
+interface EditUser {
+    type: UserActionType.EDIT_USER,
     payload: IUser
 }
 
-interface EditUserFail {
-    type: UserActionType.EDIT_USER_FAIL,
+//UPDATE USER
+interface UpdateUserRequest {
+    type: UserActionType.UPDATE_USER_REQUEST
+}
+
+interface UpdateUserSuccess {
+    type: UserActionType.UPDATE_USER_SUCCESS,
+    payload: IUser[]
+}
+
+interface UpdateUserFail {
+    type: UserActionType.UPDATE_USER_FAIL,
     payload: any
+}
+
+
+//USER DETAIL
+interface UserDetailRequest {
+    type: UserActionType.USER_DETAIL_REQUEST
+}
+
+interface UserDetailSuccess {
+    type: UserActionType.USER_DETAIL_SUCCESS;
+    payload: IUser;
+}
+
+interface UserDetailFail {
+    type: UserActionType.USER_DETAIL_FAIL;
+    payload: any;
 }
 
 
@@ -101,6 +134,10 @@ export type UserAction =
     | DeleteUserRequest
     | DeleteUserSuccess
     | DeleteUserFail
-    | EditUserRequest
-    | EditUserSuccess
-    | EditUserFail;
+    | EditUser
+    | UpdateUserRequest
+    | UpdateUserSuccess
+    | UpdateUserFail
+    | UserDetailRequest
+    | UserDetailSuccess
+    | UserDetailFail;

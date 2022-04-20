@@ -25,6 +25,11 @@
 td .badge {
   cursor: pointer;
 }
+td .badge a {
+  background-color: transparent;
+  text-decoration: none;
+  color:#ffffff
+}
 
 table.dataTable tbody tr {
     background-color: #ffffff;
@@ -34,3 +39,42 @@ table.dataTable tbody tr {
 .dataTables_filter {
   margin-bottom: 21px;
 }
+
+td img {
+    width: 36px;
+    height: 43px;
+    object-fit: cover;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px ;
+}
+
+.detail {
+  min-height: 500px;
+}
+
+.detail img {
+  height: 100%;
+} 
+
+.pagination li {
+  cursor: pointer;
+}
+
+.table-list {
+  height: 64vh;
+
+}
+
+@media (max-width: 768px) {
+  .table-list {
+    height: auto;
+  }
+}
+
+
+

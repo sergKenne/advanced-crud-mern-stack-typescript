@@ -19,20 +19,18 @@ const getAllUser = async(req, res) => {
 
 const addUser = async (req, res) => {
     const { email, name, phone } = req.body
-    const image = req.file.filename
+    const image = req.file.filename;
     const errors = validationResult(req);
-     
     if (!errors.isEmpty()) {
          return res.status(422).jsonp(errors.array()[0]);
     } 
     if (!req.file) {
         return res.status(422).json({msg:"please choose the image"});
     }
-    
-   
+
     try {
         const user = new User({ email, image, name, phone }) 
-        user.save().then(result => {
+        await user.save().then(result => {
             res.status(200).json({
                 msg: "user added successfully ",
                 user: result
@@ -47,43 +45,50 @@ const addUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json(errors.array());
     }
-    if (!req.file) {
-        return res.status(422).json({ msg: 'please choose the image' });
-    }
-
+    
     try {
+        const updateUser = await User.findOne({ _id: req.params.id });
         const { name, phone, email } = req.body;
-        const image = req.file.filename;
-        const { id } = req.params
+        const pathFile = path.join('uploads', updateUser.image);
+        const opts = { new: true, upsert: true };
 
-        const oldUser = await User.findOne({ _id: id });
-        const pathFile = path.join('uploads', oldUser.image);
+        if (req.file) {
+            const image = req.file.filename;
+            let doc = await User.findOneAndUpdate(
+                { _id: updateUser._id },
+                { name, phone, email, image },
+                opts,
+            );
 
-        //DELETE FILE
-        fs.unlinkSync(pathFile);
-        console.log('Successfully deleted the file.');
+            fs.unlinkSync(pathFile);
 
-        const newUser = await User.findByIdAndUpdate(id, { name, phone, email, image })
-        if (newUser) {
             res.status(200).json({
                 msg: 'user updated successfully',
-                user: newUser,
-            }); 
+                user: doc,
+            });
+            
+        } else {
+            let doc = await User.findOneAndUpdate(
+                { _id: updateUser._id },
+                { name, phone, email },
+                opts,
+            );
+            res.status(200).json({
+                msg: 'user updated successfully',
+                user: doc,
+            });
         }
         
+
     } catch (error) {
         res.status(400).json({
-            msg: err.message,
+            msg: error.message,
         });
-
     }
-
-
 }
 
 const editUser = async (req, res) => {
@@ -109,32 +114,18 @@ const deleteUser = async(req, res) => {
         }
 
         const pathFile = path.join("uploads", user.image);
-        console.log("path", pathFile);
         const userDelete = await User.findByIdAndDelete(req.params.id);
-
-        fs.unlink(pathFile, function (err) {
-            if (err) {
-                throw err;
-            } else {
-                console.log('Successfully deleted the file.');
-            }
-        });
-
+        fs.unlinkSync(pathFile);
         res.status(200).json({
             msg: ' user deleted successfully...',
-            user: userDelete
+            user: userDelete,
         });
-        
     } catch (error) {
         res.status(400).json({
             msg: error.message
         })
     }
-    
-    
 }
-
-
 
 module.exports = {
     getAllUser,

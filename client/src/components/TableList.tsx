@@ -1,50 +1,62 @@
 /* eslint-disable no-lone-blocks */
-import React, {useEffect} from 'react'
+import React, {useState} from 'react'
 import TableItem from './TableItem'
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
-import $ from 'jquery';
-
-import 'datatables.net';
-import 'datatables.net-dt/css/jquery.dataTables.css';
-
+import Loading from './Loading';
+import Pagination from './Pagination';
 
 const TableList = () => {
-
     const { users, loading } = useSelector((state: RootState) => state.users);
-    console.log("users from TableList", users);
 
-    useEffect(() => {
-        // $('#data-table').DataTable({
-        //     paging: true,
-        // });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(6);
 
-    }, [users])
+    // Get current products
+    const indexOfLastUser = currentPage * productsPerPage;
+    const indexOfFirstUser = indexOfLastUser - productsPerPage;
+    const currentUser = users.slice(indexOfFirstUser, indexOfLastUser);
+    // Change page
+    const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
 
     if (loading) {
-        return <h1>Loading....</h1>
+        return <Loading/>
     } 
+
+    if(users.length < 1) return <h1 className='text-center my-4'>Records not found</h1>
 
     if (users.length) {
         return (
-            <table className="table table-hover border-top" id="data-table">
-                <thead>
-                    <tr>
-                        <th>#Id</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user, ind) => {
-                        user.ind = ind + 1
-                        return <TableItem user={user} key={user._id} />
-                    })}
-                </tbody>
-            </table>
+            <>
+                <div className="table-list d-flex flex-column justify-content-between">
+                    <table className="table table-hover border-top" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>#Id</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentUser.map((user, ind) => {
+                                user.ind = ind + 1;
+                                return <TableItem user={user} key={user._id} />;
+                            })}
+                        </tbody>
+                    </table>
+
+                    <Pagination
+                        productsPerPage={productsPerPage}
+                        totalProducts={users.length}
+                        paginate={paginate}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                    />
+                </div>
+            </>
         );
     }
 }

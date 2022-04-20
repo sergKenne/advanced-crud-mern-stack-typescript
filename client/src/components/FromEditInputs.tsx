@@ -2,7 +2,7 @@ import React, { FC, useRef, ChangeEvent, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/reducers';
-import { addUser } from '../redux/actions/userAction';
+import { updateUser } from '../redux/actions/userAction';
 
 interface IStateUserInput {
     name: string;
@@ -14,14 +14,9 @@ interface IStateUserInput {
 const FormEditInputs: FC = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state: RootState) => state.users);
+    const initialInputState = {name:"", phone: "", email: "", image: ""}
 
-    const [usersInput, setUserInput] = useState<IStateUserInput>({
-        name: user.name,
-        phone: user.phone,
-        email: user.email,
-        image: user.image,
-    });
-
+    const [usersInput, setUserInput] = useState<IStateUserInput>(initialInputState);
     const imgRef = useRef<HTMLImageElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
     const inputFileRef = useRef<HTMLInputElement>(null!);
@@ -31,19 +26,15 @@ const FormEditInputs: FC = () => {
             ...usersInput,
             [e.target.name]: e.target.files[0],
         });
-
         const file = inputFileRef.current.files[0];
-        //console.log(file);
         if (file) {
             const reader = new FileReader();
             imgRef.current.style.display = 'block';
             textRef.current.style.display = 'none';
 
             reader.addEventListener('load', function () {
-                console.log(this);
                 imgRef.current.setAttribute('src', this.result as string);
             });
-
             reader.readAsDataURL(file);
         } else {
             imgRef.current.style.display = null;
@@ -65,27 +56,34 @@ const FormEditInputs: FC = () => {
         formData.append('email', usersInput.email);
         formData.append('phone', usersInput.phone);
         formData.append('image', usersInput.image);
-        if (!usersInput.email || !usersInput.name || !usersInput.phone || !usersInput.image) {
+
+        const formDataWithoutImage = new FormData();
+        formDataWithoutImage.append('name', usersInput.name);
+        formDataWithoutImage.append('email', usersInput.email);
+        formDataWithoutImage.append('phone', usersInput.phone);
+        
+        if (!usersInput.email || !usersInput.name || !usersInput.phone ) {
             console.log('all fields is require');
         } else {
-            dispatch(addUser(formData));
-            setUserInput({
-                name: '',
-                phone: '',
-                email: '',
-                image: '',
-            });
+
+            if (inputFileRef.current.files[0]) {
+                dispatch(updateUser(user._id, formData));
+                setUserInput(initialInputState);
+                window.location.reload()
+            } else {
+                dispatch(updateUser(user._id, formDataWithoutImage));
+                setUserInput(initialInputState);
+            }
         }
     };
 
     useEffect(() => {
-        setUserInput({
-            name: user.name,
-            phone: user.phone,
-            email: user.email,
-            image: user.image,
-        });
-    }, [user])
+        const { name, phone, email, image } = user;
+        setUserInput({name, phone, email, image});
+        imgRef.current.setAttribute('src', "http://localhost:5000/uploads/" + user.image);
+        imgRef.current.style.display = 'block';
+        textRef.current.style.display = 'none';
+    }, [])
 
     return (
         <form className="py-4 px-2" onSubmit={handleSubmit}>
@@ -135,7 +133,7 @@ const FormEditInputs: FC = () => {
             <div className="card d-flex flex-row justify-content-center align-items-center mb-2 image__preview-wrap">
                 <img
                     ref={imgRef}
-                    src="http://localhost:5000/uploads/1649966992906.jpg"
+                    src=""
                     className="card-img-top image__preview-img"
                     alt="..."
                 />
@@ -144,7 +142,9 @@ const FormEditInputs: FC = () => {
                 </span>
             </div>
 
-            <button type="submit" className="btn btn-success d-block w-100">
+            <button type="submit"
+                className="btn btn-success d-block w-100"
+                >
                 Update Record
             </button>
         </form>

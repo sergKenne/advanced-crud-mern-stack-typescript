@@ -1,7 +1,5 @@
 import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/reducers';
 import { addUser } from '../redux/actions/userAction';
 
 interface IStateUserInput {
@@ -12,16 +10,14 @@ interface IStateUserInput {
 }
 
 const FormInputs: FC = () => {
-    const dispatch = useDispatch()
-    //const { user, loading } = useSelector((state: RootState) => state.users);
-
-
+    const dispatch = useDispatch();
     const [usersInput, setUserInput] = useState<IStateUserInput>({
         name: "",
         phone: "",
         email: "",
         image: null
-    })
+    });
+    const [infoMsg, setInfoMsg] = useState("");
 
     const imgRef = useRef<HTMLImageElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
@@ -29,20 +25,19 @@ const FormInputs: FC = () => {
     
     const loadingFile = (e: ChangeEvent<HTMLInputElement>): void => {
        
-        setUserInput({
-            ...usersInput,
-            [e.target.name]: e.target.files[0],
-        });
-
+        let image = e.target.files[0]
         const file = inputFileRef.current.files[0];
-        //console.log(file);
+        console.log("file:",file);
         if (file) {
             const reader = new FileReader();
             imgRef.current.style.display = 'block';
             textRef.current.style.display = 'none';
 
             reader.addEventListener('load', function () {
-                console.log(this);
+               setUserInput({
+                    ...usersInput,
+                    image,
+                });
                 imgRef.current.setAttribute('src', this.result as string);
             });
 
@@ -67,22 +62,20 @@ const FormInputs: FC = () => {
         formData.append("email", usersInput.email);
         formData.append("phone", usersInput.phone);
         formData.append("image", usersInput.image);
+        
         if (!usersInput.email || !usersInput.name || !usersInput.phone || !usersInput.image) {
             console.log("all fields is require");
+            setInfoMsg('please fill  all fields ');
+            setTimeout(() => setInfoMsg(""), 3000);
         } else {
             dispatch(addUser(formData));
-           setUserInput({
-                name: "",
-                phone: "",
-                email: "",
-                image: ""
-           })
+            setUserInput({name: "",phone: "",email: "",image: ""});
+            inputFileRef.current.value = null;
+            imgRef.current.style.display = null;
+            textRef.current.style.display = null;
         }
-       
-
     }
         
-
   return (
       <form className="py-4 px-2" onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -129,12 +122,7 @@ const FormInputs: FC = () => {
               />
           </div>
           <div className="card d-flex flex-row justify-content-center align-items-center mb-2 image__preview-wrap">
-              <img
-                  ref={imgRef}
-                  src="http://localhost:5000/uploads/1649966992906.jpg"
-                  className="card-img-top image__preview-img"
-                  alt="..."
-              />
+              <img ref={imgRef} src="" className="card-img-top image__preview-img" alt="..." />
               <span className="image__preview-text" ref={textRef}>
                   Image preview
               </span>
@@ -143,9 +131,7 @@ const FormInputs: FC = () => {
           <button type="submit" className="btn btn-primary d-block w-100">
               Add Record
           </button>
-          {/* <button type="submit" className="btn btn-success d-block w-100">
-              Upload Record
-          </button> */}
+          <p className="text-danger text-center h6 mt-2">{infoMsg}</p>
       </form>
   );
 }

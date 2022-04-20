@@ -1,3 +1,4 @@
+import { IUser } from './../../types/user';
 import axios from "axios"
 import {Dispatch} from "redux"
 import { UserActionType } from "../../types/user";
@@ -19,19 +20,16 @@ export const fetchUsers = () => async(dispatch:Dispatch) => {
             payload: error.message
         })
     }
-    
 }
 
 export const addUser = (user: any) => async(dispatch: Dispatch) => {
     dispatch({ type: UserActionType.CREATE_USER_REQUEST });
     try {
         const { data } = await axios.post('/api/user', user);
-        console.log("data user",data.user)
         dispatch({
             type: UserActionType.CREATE_USER_SUCCESS,
             payload: data.user
         })
-        
     } catch (error) {
         console.log(error);
         dispatch({
@@ -43,7 +41,6 @@ export const addUser = (user: any) => async(dispatch: Dispatch) => {
 
 export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
     dispatch({ type: UserActionType.DELETE_USER_REQUEST })
-    
     try {
         await axios.delete(`/api/user/${id}`).then(() => {
             dispatch({
@@ -51,7 +48,6 @@ export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
                 payload: id,
             });
         })
-        
     } catch (error) {
         dispatch({
             type: UserActionType.DELETE_USER_FAIL,
@@ -60,19 +56,46 @@ export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
     }
 }
 
-export const editUSer = (id: string) => async(dispatch: Dispatch) => {
-    dispatch({ type: UserActionType.EDIT_USER_REQUEST })
+export const editUser = (id:string) => (dispatch:Dispatch, getState:any) => {
+    const user = getState().users.users.find((el: IUser) => el._id === id)
+    dispatch({
+        type: UserActionType.EDIT_USER,
+        payload: user
+    })
+}
+
+export const updateUser = (id:string, user:any) => async(dispatch:Dispatch, getState: any) => {
+    dispatch({ type: UserActionType.UPDATE_USER_REQUEST })
+    try {
+        const { data } = await axios.put(`/api/user/${id}`, user)
+        let newUsers = getState().users.users
+        let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
+        newUsers[indOfUser] = data.user
+        dispatch({
+            type: UserActionType.UPDATE_USER_SUCCESS,
+            payload: newUsers
+        })
+    } catch (error) {
+        dispatch({
+            type: UserActionType.UPDATE_USER_FAIL,
+            payload: error,
+        });
+    }
+}
+
+export const userDetail = (id: string) => async(dispatch: Dispatch) => {
+    dispatch({ type: UserActionType.USER_DETAIL_REQUEST })
     try {
         const { data } = await axios.get(`/api/user/${id}`)
 
         dispatch({
-            type: UserActionType.EDIT_USER_SUCCESS,
+            type: UserActionType.USER_DETAIL_SUCCESS,
             payload: data.user,
         });
         
     } catch (error) {
         dispatch({
-            type: UserActionType.EDIT_USER_FAIL,
+            type: UserActionType.USER_DETAIL_FAIL,
             payload: error,
         });
     }

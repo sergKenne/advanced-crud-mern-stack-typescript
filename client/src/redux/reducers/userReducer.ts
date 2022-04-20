@@ -3,6 +3,7 @@ import { IUser, UserAction, UserActionType } from './../../types/user';
 interface IState {
     users: IUser[] | null;
     user: IUser | null,
+    detail: IUser
     loading: boolean;
     error: any;
 }
@@ -10,6 +11,7 @@ interface IState {
 const initialState:IState = {
     users: [],
     user: null,
+    detail: {name:"", email:"", phone:"", image:""},
     loading: false,
     error: ""
 }
@@ -74,18 +76,43 @@ const userReducer = (state:IState = initialState, action: UserAction): IState =>
             };
 
         //EDIT USER
-        case UserActionType.EDIT_USER_REQUEST:
+        case UserActionType.EDIT_USER:
+            return {
+                ...state,
+                user: action.payload,
+            };
+        //UPDATE USER
+        case UserActionType.UPDATE_USER_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case UserActionType.EDIT_USER_SUCCESS:
+        case UserActionType.UPDATE_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                user: action.payload
+                users: action.payload,
+                user: null,
             };
-        case UserActionType.EDIT_USER_FAIL:
+        case UserActionType.UPDATE_USER_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+            };
+
+        //USER DETAIL
+        case UserActionType.USER_DETAIL_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case UserActionType.USER_DETAIL_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                detail: action.payload,
+            };
+        case UserActionType.USER_DETAIL_FAIL:
             return {
                 ...state,
                 loading: false,

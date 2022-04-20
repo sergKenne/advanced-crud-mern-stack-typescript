@@ -1,7 +1,8 @@
-import React, {FC} from 'react'
+import React, { FC } from 'react'
+import { Link } from 'react-router-dom';
 import { IUser } from '../types/user';
 import {useDispatch} from "react-redux"
-import { deleteUser, editUSer } from '../redux/actions/userAction';
+import { deleteUser, editUser } from '../redux/actions/userAction';
 
 
 interface IProps {
@@ -16,17 +17,21 @@ const TableItem: FC<IProps> = ({ user }) => {
         <tr>
             <td>{user.ind}</td>
             <td>
-                <img
-                    src={`http://localhost:5000/uploads/${user.image}`}
-                    alt={user.name}
-                    width="25"
-                />
+                <Link to={`/detail/${user._id}`}>
+                    <img
+                        src={`http://localhost:5000/uploads/${user.image}`}
+                        alt={user.name}
+                        width="25"
+                    />
+                </Link>
             </td>
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.phone}</td>
             <td>
-                <span className="badge bg-primary my-2">Details</span>
+                <span className="badge bg-primary my-2">
+                    <Link to={`/detail/${user._id}`}>Details</Link>
+                </span>
                 &nbsp;|&nbsp;
                 <span
                     className="badge bg-danger my-2"
@@ -36,7 +41,7 @@ const TableItem: FC<IProps> = ({ user }) => {
                 &nbsp;|&nbsp;
                 <span
                     className="badge bg-success my-2"
-                    onClick={() => dispatch(editUSer(user._id))}>
+                    onClick={() => dispatch(editUser(user._id))}>
                     Edit
                 </span>
             </td>
