@@ -28,7 +28,7 @@ const Detail: FC = () => {
                             <img
                                 src={`/${detail.image}`}
                                 className="img-fluid rounded-start"
-                                alt="..."
+                                alt="...git status"
                             />
                         </div>
                         <div className="col-md-6">
