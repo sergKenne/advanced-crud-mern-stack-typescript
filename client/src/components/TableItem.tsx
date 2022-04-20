@@ -19,7 +19,7 @@ const TableItem: FC<IProps> = ({ user }) => {
             <td>
                 <Link to={`/detail/${user._id}`}>
                     <img
-                        src={`https://advanced-crud-mern-typescript.herokuapp.com/uploads/${user.image}`}
+                        src={`/uploads/${user.image}`}
                         alt={user.name}
                         width="25"
                     />

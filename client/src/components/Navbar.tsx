@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
       <div>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
               <div className="container-fluid">
-                  <a className="navbar-brand" href="#">
-                      CRUD-APP
-                  </a>
+                  <Link to="/" className="navbar-brand" >
+                     NERN-STACK-APP
+                  </Link>
                   <button
                       className="navbar-toggler"
                       type="button"
@@ -23,24 +24,9 @@ const Navbar = () => {
                   <div className="collapse navbar-collapse" id="navbarSupportedContent">
                       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                           <li className="nav-item">
-                              <a className="nav-link active" aria-current="page" href="#">
+                              <Link to="/" className="nav-link active" aria-current="page">
                                   Home
-                              </a>
-                          </li>
-                          <li className="nav-item">
-                              <a className="nav-link" href="#">
-                                  Features
-                              </a>
-                          </li>
-                          <li className="nav-item">
-                              <a className="nav-link" href="#">
-                                  Services
-                              </a>
-                          </li>
-                          <li className="nav-item">
-                              <a className="nav-link" href="#">
-                                  About
-                              </a>
+                              </Link>
                           </li>
                       </ul>
                       <form className="d-flex">

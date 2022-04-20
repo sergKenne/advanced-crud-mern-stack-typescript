@@ -10,8 +10,9 @@ dbConnect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
 //static Images Folder
-app.use('/uploads', express.static('./uploads'));
+//app.use('/uploads', express.static('./uploads'));
 
 //routers
 app.use('/api/user', require('./router/userRouter'));

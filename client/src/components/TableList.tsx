@@ -47,14 +47,15 @@ const TableList = () => {
                             })}
                         </tbody>
                     </table>
-
-                    <Pagination
-                        productsPerPage={productsPerPage}
-                        totalProducts={users.length}
-                        paginate={paginate}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                    />
+                    <div className="d-flex flex-row-reverse">
+                        <Pagination
+                            productsPerPage={productsPerPage}
+                            totalProducts={users.length}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </div>
                 </div>
             </>
         );

@@ -53,7 +53,7 @@ const updateUser = async (req, res) => {
     try {
         const updateUser = await User.findOne({ _id: req.params.id });
         const { name, phone, email } = req.body;
-        const pathFile = path.join('uploads', updateUser.image);
+        const pathFile = path.join('client/public/uploads', updateUser.image);
         const opts = { new: true, upsert: true };
 
         if (req.file) {
@@ -113,7 +113,7 @@ const deleteUser = async(req, res) => {
             return res.status(402).json({ msg: err.message }); 
         }
 
-        const pathFile = path.join("uploads", user.image);
+        const pathFile = path.join('client/public/uploads', user.image);
         const userDelete = await User.findByIdAndDelete(req.params.id);
         fs.unlinkSync(pathFile);
         res.status(200).json({

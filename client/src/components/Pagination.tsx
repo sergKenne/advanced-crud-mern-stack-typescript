@@ -22,40 +22,38 @@ const Pagination: FC<Iprops> = ({
     }
 
     return (
-        <div>
-            <nav aria-label="...">
-                <ul className="pagination">
+        <nav aria-label="...">
+            <ul className="pagination">
+                <li
+                    className="page-item"
+                    onClick={() => {
+                        if (currentPage > 1) {
+                            setCurrentPage(currentPage - 1);
+                        }
+                    }}>
+                    <span className="page-link">Previous</span>
+                </li>
+                {pageNumbers.map((number) => (
                     <li
-                        className="page-item"
-                        onClick={() => {
-                            if (currentPage > 1) {
-                                setCurrentPage(currentPage - 1);
-                            }
-                        }}>
-                        <span className="page-link">Previous</span>
+                        key={number}
+                        className={number === currentPage ? 'page-item active' : 'page-item'}
+                        onClick={() => paginate(number)}>
+                        <span className="page-link">{number}</span>
                     </li>
-                    {pageNumbers.map((number) => (
-                        <li
-                            key={number}
-                            className={number === currentPage ? 'page-item active' : 'page-item'}
-                            onClick={() => paginate(number)}>
-                            <span className="page-link">{number}</span>
-                        </li>
-                    ))}
-                    <li
-                        className="page-item"
-                        onClick={() => {
-                            if (currentPage < pageNumbers[pageNumbers.length-1]) {
-                                setCurrentPage(currentPage + 1);
-                            } else {
-                                setCurrentPage(pageNumbers.length);
-                            }
-                        }}>
-                        <span className="page-link">Next</span>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                ))}
+                <li
+                    className="page-item"
+                    onClick={() => {
+                        if (currentPage < pageNumbers[pageNumbers.length-1]) {
+                            setCurrentPage(currentPage + 1);
+                        } else {
+                            setCurrentPage(pageNumbers.length);
+                        }
+                    }}>
+                    <span className="page-link">Next</span>
+                </li>
+            </ul>
+        </nav>
     );
 };
 
