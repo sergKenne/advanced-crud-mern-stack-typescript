@@ -1,7 +1,7 @@
 import { IUser, UserAction, UserActionType } from './../../types/user';
 
 interface IState {
-    users: IUser[] | [];
+    users: IUser[] | null;
     user: IUser | null,
     detail: IUser
     loading: boolean;

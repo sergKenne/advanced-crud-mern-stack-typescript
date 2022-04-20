@@ -12,10 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //static Images Folder
-app.use('/uploads', express.static('./client/public/uploads'));
+//app.use('/uploads', express.static('./client/public/uploads'));
 
 //routers
-//app.use('/api/user', require('./router/userRouter'));
+app.use('/api/user', require('./router/userRouter'));
 
 if (process.env.NODE_ENV == 'production') {
     app.use(express.static('client/build'));
