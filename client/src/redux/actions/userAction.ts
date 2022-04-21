@@ -33,7 +33,6 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
             payload: data.user,
         });
     } catch (error) {
-        console.log(error);
         dispatch({
             type: UserActionType.CREATE_USER_FAIL,
             payload: error,
