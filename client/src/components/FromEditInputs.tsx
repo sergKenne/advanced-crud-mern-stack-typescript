@@ -69,7 +69,7 @@ const FormEditInputs: FC = () => {
             if (inputFileRef.current.files[0]) {
                 dispatch(updateUser(user._id, formData));
                 setUserInput(initialInputState);
-                window.location.reload()
+                //window.location.reload()
             } else {
                 dispatch(updateUser(user._id, formDataWithoutImage));
                 setUserInput(initialInputState);

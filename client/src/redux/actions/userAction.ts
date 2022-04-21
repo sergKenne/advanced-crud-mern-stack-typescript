@@ -67,32 +67,31 @@ export const editUser = (id:string) => (dispatch:Dispatch, getState:any) => {
 export const updateUser = (id:string, user:any) => async(dispatch:Dispatch, getState: any) => {
     dispatch({ type: UserActionType.UPDATE_USER_REQUEST })
     try {
-        const { data } = await axios.put(`/api/user/${id}`, user)
+        const { data } = await axios.put(`/api/user/${id}`, user);
 
-        //let newUsers = getState().users.users
+        let newUsers = getState().users.users;
+        //newUsers = await newUsers.data.users.users
         // let newUsers = await axios.get('/api/user');
         // newUsers = await newUsers.data.users.users
-        fetch('/api/user')
-            .then(res => res.json())
-            .then(result => {
-                let newUsers = result.users;
-                let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
-                newUsers[indOfUser] = data.user;
-                dispatch({
-                    type: UserActionType.UPDATE_USER_SUCCESS,
-                    payload: newUsers,
-                });
-            } )
-        
-        
 
-        
-        // let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
-        // newUsers[indOfUser] = data.user;
-        // dispatch({
-        //     type: UserActionType.UPDATE_USER_SUCCESS,
-        //     payload: newUsers
-        // })
+        // fetch('/api/user')
+        //     .then(res => res.json())
+        //     .then(result => {
+        //         let newUsers = result.users;
+        //         let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
+        //         newUsers[indOfUser] = data.user;
+        //         dispatch({
+        //             type: UserActionType.UPDATE_USER_SUCCESS,
+        //             payload: newUsers,
+        //         });
+        //     } )
+
+        let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
+        newUsers[indOfUser] = data.user;
+        dispatch({
+            type: UserActionType.UPDATE_USER_SUCCESS,
+            payload: newUsers,
+        });
     } catch (error) {
         dispatch({
             type: UserActionType.UPDATE_USER_FAIL,
