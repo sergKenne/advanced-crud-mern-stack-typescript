@@ -38,23 +38,23 @@ const userReducer = (state:IState = initialState, action: UserAction): IState =>
             };
 
         //CREATE USER
-        case UserActionType.CREATE_USER_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
-        case UserActionType.CREATE_USER_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                users: [...state.users, action.payload],
-            };
-        case UserActionType.CREATE_USER_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
+        // case UserActionType.CREATE_USER_REQUEST:
+        //     return {
+        //         ...state,
+        //         loading: true,
+        //     };
+        // case UserActionType.CREATE_USER_SUCCESS:
+        //     return {
+        //         ...state,
+        //         users: [...state.users, action.payload],
+        //         loading: false,
+        //     };
+        // case UserActionType.CREATE_USER_FAIL:
+        //     return {
+        //         ...state,
+        //         loading: false,
+        //         error: action.payload,
+        //     };
 
         //DELETE USER
         case UserActionType.DELETE_USER_REQUEST:

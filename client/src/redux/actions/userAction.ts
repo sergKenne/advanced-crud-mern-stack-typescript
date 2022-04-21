@@ -22,25 +22,35 @@ export const fetchUsers = () => async(dispatch:Dispatch) => {
     }
 }
 
-export const addUser = (user: any) => async(dispatch: Dispatch) => {
-    dispatch({ type: UserActionType.CREATE_USER_REQUEST });
-    try {
-        const { data } = await axios.post('/api/user', user);
-        console.log("data:", data)
-        if (data) {
-            dispatch({
-                type: UserActionType.CREATE_USER_SUCCESS,
-                payload: data.user
-            })
-        }
+export const addUser = (user: any) => async (dispatch: Dispatch) => {
+    
+    //dispatch({ type: UserActionType.CREATE_USER_REQUEST });
+
+    fetch('/api/user', {
+        method: 'POST',
+        body: user,
+    }).then((response) => {
+
+        console.log(response.json());
         
-    } catch (error) {
-        console.log(error);
-        dispatch({
-            type: UserActionType.CREATE_USER_FAIL,
-            payload: error
-        })
-    }
+        
+    });
+
+    // try {
+    //     const { data } = await axios.post('/api/user', user);
+    //     console.log("data:", data)
+        
+    //     dispatch({
+    //         type: UserActionType.CREATE_USER_SUCCESS,
+    //         payload: data.user
+    //     }) 
+    // } catch (error) {
+    //     console.log(error);
+    //     dispatch({
+    //         type: UserActionType.CREATE_USER_FAIL,
+    //         payload: error
+    //     })
+    // }
 }
 
 export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
