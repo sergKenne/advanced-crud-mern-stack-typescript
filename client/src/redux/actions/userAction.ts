@@ -23,19 +23,31 @@ export const fetchUsers = () => async(dispatch:Dispatch) => {
 }
 
 export const addUser = (user: any) => async (dispatch: Dispatch) => {
+
+    var options = {
+        method: 'post',
+        url: '/api/user',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        body: user,
+    };
     
     dispatch({ type: UserActionType.CREATE_USER_REQUEST });
 
-    fetch('/api/user', {method: 'POST', body: user })
-        .then(res => res.json())
-        .then(data => {
+    //fetch('/api/user', {method: 'POST', body: user })
+    fetch('/api/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        body: user 
+        })
+        .then((res) => res.json())
+        .then((data) => {
             console.log(data.user);
-            alert(data.user)
+            alert(data.user);
             // dispatch({
             //     type: UserActionType.CREATE_USER_SUCCESS,
             //     payload: data.user
             // })
-        })
+        });
         // .catch(err => {
         //     console.log(err);
         //     dispatch({
