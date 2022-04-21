@@ -37,7 +37,7 @@ const TableItem: FC<IProps> = ({ user }) => {
                 &nbsp;|&nbsp;
                 <span
                     className="badge  my-1 p-2 btn-off"
-                    onClick={() => dispatch(deleteUser(user._id))}
+                    //onClick={() => dispatch(deleteUser(user._id))}
                 >
                     Delete
                 </span>

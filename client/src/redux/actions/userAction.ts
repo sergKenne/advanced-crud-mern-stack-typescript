@@ -42,25 +42,7 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
                 payload: err
             })
         })
-    
-        
-        
 
-    // try {
-    //     const { data } = await axios.post('/api/user', user);
-    //     console.log("data:", data)
-        
-    //     dispatch({
-    //         type: UserActionType.CREATE_USER_SUCCESS,
-    //         payload: data.user
-    //     }) 
-    // } catch (error) {
-    //     console.log(error);
-    //     dispatch({
-    //         type: UserActionType.CREATE_USER_FAIL,
-    //         payload: error
-    //     })
-    // }
 }
 
 export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
