@@ -33,12 +33,12 @@ const TableItem: FC<IProps> = ({ user }) => {
                     <Link to={`/detail/${user._id}`}>Details</Link>
                 </span>
                 &nbsp;|&nbsp;
-                <span
+                {/* <span
                     className="badge bg-danger my-2"
                     onClick={() => dispatch(deleteUser(user._id))}>
                     Delete
                 </span>
-                &nbsp;|&nbsp;
+                &nbsp;|&nbsp; */}
                 <span
                     className="badge bg-success my-2"
                     onClick={() => dispatch(editUser(user._id))}>
