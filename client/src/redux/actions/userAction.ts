@@ -36,9 +36,12 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
     //fetch('/api/user', {method: 'POST', body: user })
     fetch('/api/user', {
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
-        body: user 
-        })
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: user,
+    })
         .then((res) => res.json())
         .then((data) => {
             console.log(data.user);
