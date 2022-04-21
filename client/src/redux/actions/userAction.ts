@@ -26,23 +26,45 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
 
     //dispatch({ type: UserActionType.CREATE_USER_REQUEST });
 
-    fetch('/api/user', {method: 'POST', body: user })
-        .then( (res) => res.json() )
-        .then((data) => {
-            console.log(data.user);
-            //alert(data.user);
-            dispatch({
-                type: UserActionType.CREATE_USER_SUCCESS,
-                payload: data.user
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            dispatch({
-                type: UserActionType.CREATE_USER_FAIL,
-                payload: err
-            })
-        })
+
+
+    // fetch('/api/user', {method: 'POST', body: user })
+    //     .then( (res) => res.json() )
+    //     .then((data) => {
+    //         console.log(data.user);
+    //         //alert(data.user);
+    //         dispatch({
+    //             type: UserActionType.CREATE_USER_SUCCESS,
+    //             payload: data.user
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //         dispatch({
+    //             type: UserActionType.CREATE_USER_FAIL,
+    //             payload: err
+    //         })
+    //     })
+    
+    
+    try {
+        const { data } = await axios.post(`/api/user/`, user);
+
+        console.log(data.user);
+        //alert(data.user);
+        dispatch({
+            type: UserActionType.CREATE_USER_SUCCESS,
+            payload: data.user,
+        });
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: UserActionType.CREATE_USER_FAIL,
+            payload: error,
+        });
+    }
+    
+
 
 }
 
