@@ -18,31 +18,36 @@ const getAllUser = async(req, res) => {
 }
 
 const addUser = async (req, res) => {
-    const { email, name, phone } = req.body
+    const { email, name, phone } = req.body;
     const image = req.file.filename;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-         return res.status(422).jsonp(errors.array()[0]);
-    } 
+        return res.status(422).jsonp(errors.array()[0]);
+    }
     if (!req.file) {
-        return res.status(422).json({msg:"please choose the image"});
+        return res.status(422).json({ msg: 'please choose the image' });
     }
 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); 
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    //res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+
     try {
-        const user = new User({ email, image, name, phone }) 
-        await user.save().then(result => {
+        const user = new User({ email, image, name, phone });
+        await user.save().then((result) => {
             res.status(200).json({
-                msg: "user added successfully ",
-                user: result
-            })
-        })
+                msg: 'user added successfully ',
+                user: result,
+            });
+        });
     } catch (error) {
         res.status(400).json({
-            msg: error.message
-        })
+            msg: error.message,
+        });
     }
-    
-}
+};;
 
 const updateUser = async (req, res) => {
     const errors = validationResult(req);
