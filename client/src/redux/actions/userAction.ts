@@ -26,7 +26,13 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
 
     dispatch({ type: UserActionType.CREATE_USER_REQUEST });
     try {
-        const { data } = await axios.post(`/api/user/`, user);
+        //const { data } = await axios.post(`/api/user/`, user);
+        const { data } = await axios({
+            method: 'post',
+            url: '/api/user/',
+            data: user,
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
         console.log(data.user);
         dispatch({
             type: UserActionType.CREATE_USER_SUCCESS,
