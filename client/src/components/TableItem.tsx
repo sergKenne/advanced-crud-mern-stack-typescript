@@ -18,31 +18,28 @@ const TableItem: FC<IProps> = ({ user }) => {
             <td>{user.ind}</td>
             <td>
                 <Link to={`/detail/${user._id}`}>
-                    <img
-                        src={`/uploads/${user.image}`}
-                        alt={user.name}
-                        width="25"
-                    />
+                    <img src={`/uploads/${user.image}`} alt={user.name} width="25" />
                 </Link>
             </td>
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.phone}</td>
             <td>
-                <span className="badge bg-primary my-2">
+                <span className="badge bg-primary my-1 p-2">
                     <Link to={`/detail/${user._id}`}>Details</Link>
                 </span>
                 &nbsp;|&nbsp;
-                {/* <span
-                    className="badge bg-danger my-2"
-                    onClick={() => dispatch(deleteUser(user._id))}>
-                    Delete
-                </span>
-                &nbsp;|&nbsp; */}
                 <span
-                    className="badge bg-success my-2"
+                    className="badge bg-success my-1 p-2"
                     onClick={() => dispatch(editUser(user._id))}>
                     Edit
+                </span>
+                &nbsp;|&nbsp;
+                <span
+                    className="badge  my-1 p-2 btn-off"
+                    //onClick={() => dispatch(deleteUser(user._id))}
+                >
+                    Delete
                 </span>
             </td>
         </tr>

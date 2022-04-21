@@ -76,5 +76,11 @@ td img {
   }
 }
 
+.btn-off {
+  cursor: not-allowed!important;
+  background-color: rgb(227, 140, 94);
+  
+}
+
 
 
