@@ -26,10 +26,14 @@ export const addUser = (user: any) => async(dispatch: Dispatch) => {
     dispatch({ type: UserActionType.CREATE_USER_REQUEST });
     try {
         const { data } = await axios.post('/api/user', user);
-        dispatch({
-            type: UserActionType.CREATE_USER_SUCCESS,
-            payload: data.user
-        })
+        console.log("data:", data)
+        if (data) {
+            dispatch({
+                type: UserActionType.CREATE_USER_SUCCESS,
+                payload: data.user
+            })
+        }
+        
     } catch (error) {
         console.log(error);
         dispatch({
