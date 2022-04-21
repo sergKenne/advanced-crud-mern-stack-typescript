@@ -24,7 +24,7 @@ export const fetchUsers = () => async(dispatch:Dispatch) => {
 
 export const addUser = (user: any) => async (dispatch: Dispatch) => {
 
-    //dispatch({ type: UserActionType.CREATE_USER_REQUEST });
+    dispatch({ type: UserActionType.CREATE_USER_REQUEST });
 
 
 
@@ -63,9 +63,6 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
             payload: error,
         });
     }
-    
-
-
 }
 
 export const deleteUser = (id:string) => async(dispatch:Dispatch) => {
