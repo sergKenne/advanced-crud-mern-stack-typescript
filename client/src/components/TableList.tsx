@@ -1,10 +1,11 @@
 /* eslint-disable no-lone-blocks */
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TableItem from './TableItem'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import Loading from './Loading';
 import Pagination from './Pagination';
+import { fetchUsers } from '../redux/actions/userAction';
 
 const TableList = () => {
     const { users, loading } = useSelector((state: RootState) => state.users);
@@ -17,7 +18,14 @@ const TableList = () => {
     const indexOfFirstUser = indexOfLastUser - productsPerPage;
     const currentUser = users.slice(indexOfFirstUser, indexOfLastUser);
     // Change page
-    const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, []);
 
     if (loading) {
         return <Loading/>

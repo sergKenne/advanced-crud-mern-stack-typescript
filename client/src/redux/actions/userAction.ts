@@ -30,19 +30,19 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
         .then( (res) => res.json() )
         .then((data) => {
             console.log(data.user);
-            alert(data.user);
-            // dispatch({
-            //     type: UserActionType.CREATE_USER_SUCCESS,
-            //     payload: data.user
-            // })
+            //alert(data.user);
+            dispatch({
+                type: UserActionType.CREATE_USER_SUCCESS,
+                payload: data.user
+            })
         })
-        // .catch(err => {
-        //     console.log(err);
-        //     dispatch({
-        //         type: UserActionType.CREATE_USER_FAIL,
-        //         payload: err
-        //     })
-        // })
+        .catch(err => {
+            console.log(err);
+            dispatch({
+                type: UserActionType.CREATE_USER_FAIL,
+                payload: err
+            })
+        })
 
 }
 

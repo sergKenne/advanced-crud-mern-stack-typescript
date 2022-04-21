@@ -69,7 +69,7 @@ const FormInputs: FC = () => {
             setTimeout(() => setInfoMsg(""), 3000);
         } else {
             dispatch(addUser(formData));
-            setUserInput({name: "",phone: "",email: "",image: ""});
+            //setUserInput({name: "",phone: "",email: "",image: ""});
             inputFileRef.current.value = null;
             imgRef.current.style.display = null;
             textRef.current.style.display = null;

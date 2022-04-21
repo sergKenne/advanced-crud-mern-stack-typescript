@@ -28,10 +28,10 @@ const addUser = async (req, res) => {
         return res.status(422).json({ msg: 'please choose the image' });
     }
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    //res.setHeader('Access-Control-Allow-Origin', '*');
     //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-    res.setHeader('Access-Control-Allow-Methods', 'POST'); 
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+    //res.setHeader('Access-Control-Allow-Methods', 'POST'); 
+    //res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
     //res.setHeader('Access-Control-Allow-Credentials', true); // If needed
 
     try {
