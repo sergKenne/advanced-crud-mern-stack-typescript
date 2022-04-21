@@ -2,18 +2,18 @@
 import React, { FC, useEffect } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
-//import { useDispatch } from 'react-redux';
-//import { fetchUsers } from './redux/actions/userAction';
+import { useDispatch } from 'react-redux';
+import { fetchUsers } from './redux/actions/userAction';
 import Detail from './components/Detail';
 import Home from './components/Home';
 
 const App: FC = () => {
     
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(fetchUsers());
-    // }, []);
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, []);
 
     return (
         <div className="App">
