@@ -27,15 +27,7 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
     //dispatch({ type: UserActionType.CREATE_USER_REQUEST });
 
     fetch('/api/user', {method: 'POST', body: user })
-    // fetch('/api/user', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //         'Access-Control-Allow-Origin': '*',
-    //     },
-    //     body: user,
-    // })
-        .then((res) => res.json())
+        .then( (res) => res.json() )
         .then((data) => {
             console.log(data.user);
             alert(data.user);
@@ -44,13 +36,13 @@ export const addUser = (user: any) => async (dispatch: Dispatch) => {
             //     payload: data.user
             // })
         })
-        .catch(err => {
-            console.log(err);
-            // dispatch({
-            //     type: UserActionType.CREATE_USER_FAIL,
-            //     payload: err
-            // })
-        })
+        // .catch(err => {
+        //     console.log(err);
+        //     dispatch({
+        //         type: UserActionType.CREATE_USER_FAIL,
+        //         payload: err
+        //     })
+        // })
 
 }
 
