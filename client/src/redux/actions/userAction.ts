@@ -25,33 +25,9 @@ export const fetchUsers = () => async(dispatch:Dispatch) => {
 export const addUser = (user: any) => async (dispatch: Dispatch) => {
 
     dispatch({ type: UserActionType.CREATE_USER_REQUEST });
-
-
-
-    // fetch('/api/user', {method: 'POST', body: user })
-    //     .then( (res) => res.json() )
-    //     .then((data) => {
-    //         console.log(data.user);
-    //         //alert(data.user);
-    //         dispatch({
-    //             type: UserActionType.CREATE_USER_SUCCESS,
-    //             payload: data.user
-    //         })
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         dispatch({
-    //             type: UserActionType.CREATE_USER_FAIL,
-    //             payload: err
-    //         })
-    //     })
-    
-    
     try {
         const { data } = await axios.post(`/api/user/`, user);
-
         console.log(data.user);
-        //alert(data.user);
         dispatch({
             type: UserActionType.CREATE_USER_SUCCESS,
             payload: data.user,
@@ -96,22 +72,6 @@ export const updateUser = (id:string, user:any) => async(dispatch:Dispatch, getS
         const { data } = await axios.put(`/api/user/${id}`, user);
 
         let newUsers = getState().users.users;
-        //newUsers = await newUsers.data.users.users
-        // let newUsers = await axios.get('/api/user');
-        // newUsers = await newUsers.data.users.users
-
-        // fetch('/api/user')
-        //     .then(res => res.json())
-        //     .then(result => {
-        //         let newUsers = result.users;
-        //         let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
-        //         newUsers[indOfUser] = data.user;
-        //         dispatch({
-        //             type: UserActionType.UPDATE_USER_SUCCESS,
-        //             payload: newUsers,
-        //         });
-        //     } )
-
         let indOfUser = newUsers.findIndex((el: IUser) => el._id === id);
         newUsers[indOfUser] = data.user;
         dispatch({

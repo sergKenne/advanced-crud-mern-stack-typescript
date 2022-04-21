@@ -10,7 +10,6 @@ dbConnect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-//app.use('Access-Control-Allow-Origin','*');
 
 //static Images Folder
 app.use('/uploads', express.static('./client/public/uploads'));
